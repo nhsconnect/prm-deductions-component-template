@@ -1,3 +1,7 @@
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+}
+
 data "aws_iam_policy_document" "ecs-assume-role-policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -27,17 +31,17 @@ data "aws_iam_policy_document" "ssm_policy_doc" {
     ]
 
     resources = [
-            "Resource": "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:/NHS/${var.environment}-${data.aws_caller_identity.current.account_id}/${var.component_name}/authorization_keys"
+            "arn:aws:secretsmanager:${var.region}:${local.account_id}:secret:/NHS/${var.environment}-${local.account_id}/${var.component_name}/authorization_keys"
     ]
   }
 }
 
 resource "aws_iam_policy" "ssm_policy" {
   name   = "${var.environment}-${var.component_name}-ssm"
-  policy = "${data.aws_iam_policy_document.ssm_policy_doc.json}"
+  policy = data.aws_iam_policy_document.ssm_policy_doc.json
 }
 
 resource "aws_iam_role_policy_attachment" "ssm_police_attach" {
-  role       = "${aws_iam_role.component-ecs-role.name}"
+  role       = aws_iam_role.component-ecs-role.name
   policy_arn = aws_iam_policy.ssm_policy.arn
 }
