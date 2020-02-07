@@ -21,11 +21,22 @@ resource "aws_iam_role" "component-ecs-role" {
   description        = "Role assumed by ${var.component_name} ECS task"
 }
 
+data "aws_iam_policy_document" "ecr_policy_doc" {
+  statement {
+    actions = [
+      "ecr:*"
+    ]
+
+    resources = [
+            "*"
+    ]
+  }
+}
+
 data "aws_iam_policy_document" "ssm_policy_doc" {
   statement {
     actions = [
-      "ssm:Get*",
-      "ssm:Describe*",
+      "ssm:*"
     ]
 
     resources = [
@@ -39,7 +50,17 @@ resource "aws_iam_policy" "ssm_policy" {
   policy = data.aws_iam_policy_document.ssm_policy_doc.json
 }
 
-resource "aws_iam_role_policy_attachment" "ssm_police_attach" {
+resource "aws_iam_policy" "ecr_policy" {
+  name   = "${var.environment}-${var.component_name}-ssm"
+  policy = data.aws_iam_policy_document.ssm_policy_doc.json
+}
+
+resource "aws_iam_role_policy_attachment" "ssm_policy_attach" {
   role       = aws_iam_role.component-ecs-role.name
   policy_arn = aws_iam_policy.ssm_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "ecr_policy_attach" {
+  role       = aws_iam_role.component-ecs-role.name
+  policy_arn = aws_iam_policy.ecr_policy.arn
 }
