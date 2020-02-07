@@ -52,7 +52,7 @@ resource "aws_iam_policy" "ssm_policy" {
 
 resource "aws_iam_policy" "ecr_policy" {
   name   = "${var.environment}-${var.component_name}-ecr"
-  policy = data.aws_iam_policy_document.ssm_policy_doc.json
+  policy = data.aws_iam_policy_document.ecr_policy_doc.json
 }
 
 resource "aws_iam_role_policy_attachment" "ssm_policy_attach" {
