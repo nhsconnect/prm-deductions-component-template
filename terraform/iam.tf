@@ -24,14 +24,12 @@ resource "aws_iam_role" "component-ecs-role" {
 data "aws_iam_policy_document" "ssm_policy_doc" {
   statement {
     actions = [
-      "secretsmanager:GetResourcePolicy",
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:DescribeSecret",
-      "secretsmanager:ListSecretVersionIds"
+      "ssm:Get*",
+      "ssm:Describe*",
     ]
 
     resources = [
-            "arn:aws:secretsmanager:${var.region}:${local.account_id}:secret:/NHS/${var.environment}-${local.account_id}/${var.component_name}/authorization_keys"
+            "arn:aws:ssm:${var.region}:${local.account_id}:parameter:/NHS/${var.environment}-${local.account_id}/${var.component_name}/authorization_keys"
     ]
   }
 }
