@@ -20,11 +20,14 @@ resource "aws_iam_role" "component-ecs-role" {
 data "aws_iam_policy_document" "ssm_policy_doc" {
   statement {
     actions = [
-      "secretsmanager:*",
+      "secretsmanager:GetResourcePolicy",
+      "secretsmanager:GetSecretValue",
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:ListSecretVersionIds"
     ]
 
     resources = [
-      "*"
+            "Resource": "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:/NHS/${var.environment}-${data.aws_caller_identity.current.account_id}/${var.component_name}/authorization_keys"
     ]
   }
 }
