@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "ssm_policy_doc" {
 }
 
 resource "aws_iam_policy" "ssm_policy" {
-  name   = "${var.environment}-{$var.component_name}-ssm"
+  name   = "${var.environment}-${var.component_name}-ssm"
   policy = "${data.aws_iam_policy_document.ssm_policy_doc.json}"
 }
 
