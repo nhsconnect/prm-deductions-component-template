@@ -125,7 +125,7 @@ case "${command}" in
       aws ecs wait services-stable \
         --region $AWS_DEFAULT_REGION \
         --cluster $NHS_ENVIRONMENT-deductions-private-ecs-cluster \
-        --services $NHS_ENVIRONMENT-component-template-service
+        --services $NHS_ENVIRONMENT-generic-component-service
       ;;
   wait_ecs)
       check_env
