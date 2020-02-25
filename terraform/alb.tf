@@ -1,9 +1,9 @@
 resource "aws_alb_target_group" "alb-tg" {
-  name        = "${var.environment}-${var.component_name}-tg"
-  port        = var.port
-  protocol    = "HTTP"
-  vpc_id      = data.aws_ssm_parameter.deductions_private_vpc_id.value
-  target_type = "ip"
+  name                 = "${var.environment}-${var.component_name}-tg"
+  port                 = var.port
+  protocol             = "HTTP"
+  vpc_id               = data.aws_ssm_parameter.deductions_private_vpc_id.value
+  target_type          = "ip"
   deregistration_delay = var.alb_deregistration_delay
 
   health_check {
@@ -32,7 +32,7 @@ resource "aws_alb_listener" "alb-listener" {
   }
 }
 
-resource "aws_alb_listener_rule" "pds-adaptor-alb-listener-rule" {
+resource "aws_alb_listener_rule" "alb-listener-rule" {
   listener_arn = aws_alb_listener.alb-listener.arn
   priority     = 200
 

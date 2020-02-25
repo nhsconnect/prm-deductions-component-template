@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "ecs-assume-role-policy" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type        = "Service"
+      type = "Service"
       identifiers = [
         "ecs-tasks.amazonaws.com"
       ]
@@ -28,18 +28,18 @@ data "aws_iam_policy_document" "ecr_policy_doc" {
     ]
 
     resources = [
-            "arn:aws:ecr:${var.region}:${local.account_id}:repository/deductions/${var.component_name}"
+      "arn:aws:ecr:${var.region}:${local.account_id}:repository/deductions/${var.component_name}"
     ]
   }
-  
+
   statement {
     actions = [
       "ecr:GetAuthorizationToken"
     ]
 
     resources = [
-            "*"
-    ] 
+      "*"
+    ]
   }
 }
 
@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "logs_policy_doc" {
     ]
 
     resources = [
-            "*"
+      "*"
     ]
   }
 }
@@ -62,7 +62,7 @@ data "aws_iam_policy_document" "ssm_policy_doc" {
     ]
 
     resources = [
-            "arn:aws:ssm:${var.region}:${local.account_id}:parameter/NHS/${var.environment}-${local.account_id}/${var.component_name}/authorization_keys"
+      "arn:aws:ssm:${var.region}:${local.account_id}:parameter/NHS/${var.environment}-${local.account_id}/${var.component_name}/authorization_keys"
     ]
   }
 }
