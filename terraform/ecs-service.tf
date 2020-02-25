@@ -1,6 +1,6 @@
 locals {
   ecs_cluster_id  = data.aws_ssm_parameter.deductions_private_ecs_cluster_id.value
-  ecs_tasks_sg_id = data.aws_ssm_parameter.deductions_private_ecs_tasks_sg_id.value
+  ecs_tasks_sg_id = data.aws_ssm_parameter.deductions_private_gen_comp_sg_id.value
   private_subnets = split(",", data.aws_ssm_parameter.deductions_private_private_subnets.value)
   alb_tg_arn      = aws_alb_target_group.alb-tg.arn
 }
