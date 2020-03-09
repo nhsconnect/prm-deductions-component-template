@@ -5,6 +5,8 @@ import swaggerUi from 'swagger-ui-express';
 import example from './api/example';
 import authenticatedExample from './api/example-authenticated';
 import health from './api/health';
+import error from './api/error';
+
 import { options } from './config/logging';
 import swaggerDocument from './swagger.json';
 import { authenticateRequest } from './middleware/auth';
@@ -13,6 +15,7 @@ import { authenticateRequest } from './middleware/auth';
 const app = express();
 
 // User defined routers
+app.use('/error', error);
 app.use('/health', health);
 app.use('/example', example);
 app.use('/example-authenticated', authenticateRequest, authenticatedExample);

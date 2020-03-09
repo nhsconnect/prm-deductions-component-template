@@ -1,4 +1,4 @@
-import { portNumber, initialiseConfig } from '../';
+import { initialiseConfig, portNumber } from '../';
 
 describe('config', () => {
   describe('NODE_ENV', () => {
@@ -24,33 +24,25 @@ describe('config', () => {
   });
 
   describe('url', () => {
-    let nhsEnvironment;
+    let originalServiceUrl;
+    const mockServiceUrl = 'https://mockServiceUrl';
 
     beforeEach(() => {
-      nhsEnvironment = process.env.NHS_ENVIRONMENT;
+      originalServiceUrl = process.env.SERVICE_URL;
     });
 
     afterEach(() => {
-      process.env.NHS_ENVIRONMENT = nhsEnvironment;
+      process.env.SERVICE_URL = originalServiceUrl;
     });
 
-    it('should return localhost when NHS_ENVIRONMENT is not set', () => {
-      if (process.env.NHS_ENVIRONMENT) delete process.env.NHS_ENVIRONMENT;
+    it('should return 127.0.0.1:3000 when SERVICE_URL is not set', () => {
+      if (process.env.SERVICE_URL) delete process.env.SERVICE_URL;
       expect(initialiseConfig().url).toEqual(`http://127.0.0.1:${portNumber}`);
     });
 
-    it('should return address when NHS_ENVIRONMENT is set to test', () => {
-      process.env.NHS_ENVIRONMENT = 'test';
-      expect(initialiseConfig().url).toEqual(
-        `http://test.generic-component.patient-deductions.nhs.uk`
-      );
-    });
-
-    it('should return address when NHS_ENVIRONMENT is set to dev', () => {
-      process.env.NHS_ENVIRONMENT = 'dev';
-      expect(initialiseConfig().url).toEqual(
-        `http://dev.generic-component.patient-deductions.nhs.uk`
-      );
+    it('should return SERVICE_URL when SERVICE_URL is set', () => {
+      process.env.SERVICE_URL = mockServiceUrl;
+      expect(initialiseConfig().url).toEqual(mockServiceUrl);
     });
   });
 });

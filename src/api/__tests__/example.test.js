@@ -10,4 +10,17 @@ describe('GET /example', () => {
       .expect(200)
       .end(done);
   });
+
+  it('should return json message when called', done => {
+    request(app)
+      .get('/example')
+      .expect(res => {
+        expect(res.body).toEqual(
+          expect.objectContaining({
+            data: 'not authenticated'
+          })
+        );
+      })
+      .end(done);
+  });
 });

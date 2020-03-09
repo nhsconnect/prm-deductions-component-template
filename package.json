@@ -1,6 +1,6 @@
 {
   "name": "prm-deductions-component-template",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Deductions Generic Component",
   "license": "OGL-UK-3.0",
   "main": "src/server.js",

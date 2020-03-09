@@ -21,11 +21,19 @@ function check_env {
   fi
 }
 
+function configure_service_url {
+  if [[ -z "${NHS_ENVIRONMENT}" ]]; then
+    export SERVICE_URL=http://${NHS_SERVICE}:3000
+  else
+    export SERVICE_URL=https://${NHS_ENVIRONMENT}.${NHS_SERVICE}.patient-deductions.nhs.uk
+  fi
+}
+
 function configure_local_envs {
-  export AUTHORIZATION_KEYS=correct-key,other-key
-  export NHS_ENVIRONMENT="${NHS_ENVIRONMENT:-test}"
+  export AUTHORIZATION_KEYS="correct-key,other-key"
   export REPOSITORY_URI=$IMAGE_REPO_NAME
   export NODE_ENV=local
+  configure_service_url
 }
 
 function get_aws_account_id {
@@ -137,6 +145,7 @@ case "${command}" in
       ;;
   test_functional)
       configure_aws_service_auth_keys
+      configure_service_url
       dojo "./tasks _test_functional"
       ;;
   _test_coverage)

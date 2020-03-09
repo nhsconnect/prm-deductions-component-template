@@ -6,6 +6,15 @@ import config from '../config';
 jest.mock('../config/logging');
 
 describe('app', () => {
+  describe('GET /error', () => {
+    it('should return a 500 status code when we call the error endpoint', done => {
+      request(app)
+        .get('/error')
+        .expect(500)
+        .end(done);
+    });
+  });
+
   describe('GET /health', () => {
     it('should return a 200 when router is configured', done => {
       request(app)
