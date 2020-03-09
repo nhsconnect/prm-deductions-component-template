@@ -168,6 +168,7 @@ case "${command}" in
       ;;
   test_docker)
       configure_docker_repository_uri
+      configure_service_url
       export AUTHORIZATION_KEYS=correct-key,other-key
       dojo -c Dojofile-dtest "./tasks _test_functional"
       ;;
