@@ -4,10 +4,13 @@ import { message } from '../src/api/health';
 import config from '../src/config';
 
 describe('/health', () => {
-  it('health endpoint returns matching data', async done => {
-    const res = await axios.get(`${config.url}/health`, { adapter });
-
-    expect(res.data).toEqual(expect.objectContaining(message));
+  it('health endpoint returns matching data', done => {
+    const request = axios.get(`${config.url}/health`, { adapter });
+    expect(request).resolves.toEqual(
+      expect.objectContaining({
+        data: expect.objectContaining(message)
+      })
+    );
     done();
   });
 });
