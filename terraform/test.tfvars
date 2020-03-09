@@ -1,5 +1,6 @@
 environment          = "test"
 component_name       = "generic-component"
+dns_name             = "generic-component"
 
 task_cpu             = 256
 task_memory          = 512
