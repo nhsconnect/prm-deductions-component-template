@@ -59,22 +59,22 @@ function get_aws_secret {
 command="$1"
 case "${command}" in
   _dep)
-      echo "Running NPM Audit ..."
-      npm audit
+      yarn install
+      yarn run improved-yarn-audit --ignore-dev-deps
       ;;
   dep)
       dojo "./tasks _dep"
       ;;
   _build)
-      npm install
-      npm run build
+      yarn install
+      yarn run build
       ;;
   build)
       dojo "./tasks _build"
       ;;
   _test)
-      npm install
-      npm run test
+      yarn install
+      yarn run test
       ;;
   test)
       dojo "./tasks _test"
@@ -149,8 +149,8 @@ case "${command}" in
       dojo -c Dojofile-infra "./tasks _wait_ecs"
       ;;
   _smoke_test)
-      npm install
-      npm run test:functional
+      yarn install
+      yarn run test:functional
       ;;
   smoke_test)
       dojo "./tasks _smoke_test"
