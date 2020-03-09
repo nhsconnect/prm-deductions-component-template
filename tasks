@@ -94,9 +94,13 @@ function configure_docker_repository_uri {
   export REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/$IMAGE_REPO_NAME
 }
 
+function get_latest_commit_hash {
+  export COMMIT_HASH=$(git rev-parse HEAD | cut -c 1-7)
+}
+
 function build_docker_image {
   echo Build started on `date`
-  COMMIT_HASH=$(git rev-parse HEAD | cut -c 1-7)
+  get_latest_commit_hash
   IMAGE_TAG=${COMMIT_HASH}
   echo Building the Docker image...
   docker build -t $REPOSITORY_URI:latest -t $REPOSITORY_URI:$IMAGE_TAG .
@@ -168,12 +172,13 @@ case "${command}" in
       ;;
   test_docker)
       configure_docker_repository_uri
+      get_latest_commit_hash
       configure_service_url
-      export AUTHORIZATION_KEYS=correct-key,other-key
       dojo -c Dojofile-dtest "./tasks _test_functional"
       ;;
   test_docker_local)
       configure_local_envs
+      get_latest_commit_hash
       dojo -c Dojofile-dtest "./tasks _test_functional"
       ;;
   tf)
