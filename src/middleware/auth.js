@@ -3,8 +3,8 @@ export const authenticateRequest = (req, res, next) => {
     res.status(412).json({
       error: `Server-side Authorization keys have not been set, cannot authenticate`
     });
+    return;
   }
-
   const validAuthorizationKeys = process.env.AUTHORIZATION_KEYS;
 
   const authorizationKey = req.get('Authorization');

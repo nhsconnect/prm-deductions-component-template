@@ -1,13 +1,15 @@
-FROM node:12.14.1-alpine
+FROM node:12-alpine
 WORKDIR /app
 COPY package*.json ./
 COPY build/ /app/
 
-# This should be done to avoid any platform dependent packages
+EXPOSE 3000
+RUN apk add --no-cache tini bash
+
+ENV AUTHORIZATION_KEYS="correct-key,other-key" \
+  NODE_ENV=local
+
 RUN yarn install
 
-EXPOSE 3000
-RUN apk add --no-cache tini
-# Tini is now available at /sbin/tini
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["node", "server.js"]

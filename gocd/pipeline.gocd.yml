@@ -27,6 +27,8 @@ pipelines:
     materials:
       git:
         type: configrepo
+        blacklist:
+          - docs/**/*.*
     stages:
       - build:
           clean_workspace: true
@@ -49,7 +51,30 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test
-            npm_install:
+            integration:
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks test_integration
+            coverage:
+              artifacts:
+                - build:
+                    source: coverage/lcov-report
+              tabs:
+                coverage: lcov-report/index.html
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks test_coverage
+            yarn_install:
               resources:
                 - docker
               artifacts:
@@ -70,7 +95,7 @@ pipelines:
               tasks:
                 - fetch:
                     stage: build
-                    job: npm_install
+                    job: yarn_install
                     source: build
                 - exec:
                     command: /bin/bash
@@ -89,12 +114,14 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test_docker
-  "prm-deductions-generic-component.dev":
+  'prm-deductions-generic-component.dev':
     group: deductions
     label_template: '${git[:8]}'
     materials:
       git:
         type: configrepo
+        blacklist:
+          - docs/**/*.*
       app:
         pipeline: prm-deductions-generic-component
         stage: test_docker
@@ -108,11 +135,10 @@ pipelines:
           clean_workspace: true
           jobs:
             deploy: *deploy_job
-
-      - test:
+      - functional:
           clean_workspace: true
           jobs:
-            smoke:
+            test:
               resources:
                 - docker
               tasks:
@@ -120,4 +146,4 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ./tasks smoke_test
+                      - ./tasks test_functional

@@ -1,14 +1,13 @@
-# GP2GP Adapter Documentation
-
-1. diagrams - Contains plantuml scripts
+# Deductions Component Template Plantuml Documentation
 
 ## plantuml
 
 You can view and export plantuml diagrams using:
- 1. Plugin for IntelliJ
- 2. [Plugin for Chrome Browser](https://chrome.google.com/webstore/detail/plantuml-viewer/legbfeljfbjgfifnkmpoajgpgejojooj?hl=en)
- 3. [Plant Text Website](https://www.planttext.com/)
- 
+
+1.  Plugin for IntelliJ
+2.  [Plugin for Chrome Browser](https://chrome.google.com/webstore/detail/plantuml-viewer/legbfeljfbjgfifnkmpoajgpgejojooj?hl=en)
+3.  [Plant Text Website](https://www.planttext.com/)
+
 The NHS stylesheet for plantuml can be found [HERE](https://gist.github.com/fishey2/c9d9d7c7426d3701959789c10e96fdb0)
 
 The following example is how use the stylesheet in plantuml:
@@ -23,4 +22,4 @@ The following example is how use the stylesheet in plantuml:
 
 # Diagrams
 
-1. Link to diagrams
+1. Add Link to diagrams
