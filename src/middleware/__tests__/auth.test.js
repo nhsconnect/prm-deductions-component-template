@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../app';
 
 // In all other unit tests we want to pass through all of this logic and should therefore call jest.mock
-// jest.mock('') will call the manual mock in __mocks__ automatically
+// jest.mock('../auth') will call the manual mock in __mocks__ automatically
 describe('auth', () => {
   beforeEach(() => {
     process.env.AUTHORIZATION_KEYS = 'correct-key,other-key';
@@ -46,7 +46,7 @@ describe('auth', () => {
         .expect(res => {
           expect(res.body).toEqual(
             expect.objectContaining({
-              error: 'Authorization keys have not been set, cannot authenticate'
+              error: 'Server-side Authorization keys have not been set, cannot authenticate'
             })
           );
         })
@@ -93,7 +93,7 @@ describe('auth', () => {
         .expect(res => {
           expect(res.body).toEqual(
             expect.objectContaining({
-              error: 'Authorization is provided but not valid'
+              error: 'Authorization header is provided but not valid'
             })
           );
         })

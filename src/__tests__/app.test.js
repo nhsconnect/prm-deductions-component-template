@@ -5,9 +5,6 @@ import config from '../config';
 
 jest.mock('../config/logging');
 
-// Unit testing at this level is only testing that the router has
-// been configured correctly, the logic within each of the routers
-// should be done under the respective files' unit tests.
 describe('app', () => {
   describe('GET /health', () => {
     it('should return a 200 when router is configured', done => {
