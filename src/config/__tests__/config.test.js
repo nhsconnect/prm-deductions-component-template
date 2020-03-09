@@ -10,7 +10,6 @@ describe('config', () => {
     });
 
     afterEach(() => {
-      // always leave environment in same state as before each test
       process.env.NODE_ENV = nodeEnv;
     });
 

@@ -1,28 +1,19 @@
 import request from 'supertest';
 import app from '../../app';
 
-// When we are unit testing for middleware, we do not want to mock the middleware:
-// Instead we wish to test the logic in the middleware
-
 // In all other unit tests we want to pass through all of this logic and should therefore call jest.mock
-// jest.mock('') will cakl the manual mock in __mocks__ automatically
+// jest.mock('') will call the manual mock in __mocks__ automatically
 describe('auth', () => {
   beforeEach(() => {
-    // We should avoid overwriting or relying on environment vars for tests,
-    // where possible we should prefer to use the config.
     process.env.AUTHORIZATION_KEYS = 'correct-key,other-key';
   });
 
   afterEach(() => {
-    // If we do need to use environment variables, we want to ensure we have a clean
-    // env before each test, and hence should tear-down anything we have set up (beforeEach).
     if (process.env.AUTHORIZATION_KEYS) {
       delete process.env.AUTHORIZATION_KEYS;
     }
   });
 
-  // Jest tests should be split up by logical blocks (paths)
-  // This is the happy path
   describe('authenticated successfully', () => {
     it('should return HTTP 200 when correctly authenticated', done => {
       request(app)
@@ -33,19 +24,13 @@ describe('auth', () => {
     });
   });
 
-  // This is one type of error
   describe('AUTHORIZATION_KEYS environment variables not provides', () => {
     beforeEach(() => {
-      // In this case we remove the AUTHORIZATION_KEYS to test the case
-      // where they have not been defined
       if (process.env.AUTHORIZATION_KEYS) {
         delete process.env.AUTHORIZATION_KEYS;
       }
     });
 
-    // We should write tests to test exactly one thing where possible
-    // In this case, if the error code was wrong, we'd still know if we had the
-    // correct error message (below).
     it('should return 412 if AUTHORIZATION_KEYS have not been set', done => {
       request(app)
         .get('/example-authenticated')
@@ -54,8 +39,6 @@ describe('auth', () => {
         .end(done);
     });
 
-    // We want to make sure that every line of code (where possible) is covered
-    // Then when we come to refactor you can easily see if anything has been affected
     it('should return an explicit error message in the body if AUTHORIZATION_KEYS have not been set', done => {
       request(app)
         .get('/example-authenticated')
@@ -103,8 +86,6 @@ describe('auth', () => {
         .end(done);
     });
 
-    // Prefer object containing if objects are being built, this will allow you to test against the
-    // part that is pertinent to the test and not fail because of anything else changing.
     it('should return an explicit error message in the body when authorization key is incorrect', done => {
       request(app)
         .get('/example-authenticated')
