@@ -25,4 +25,10 @@ resource "aws_ecs_service" "ecs-service" {
 
   depends_on = [aws_alb_target_group.alb-tg, aws_alb_listener_rule.alb-http-listener-rule,
                   aws_alb_listener_rule.alb-https-listener-rule]
+
+  tags = {
+    Terraform = "true"
+    Environment = var.environment
+    Deductions-VPC = var.component_name
+  }
 }
