@@ -164,7 +164,7 @@ pipelines:
           jobs:
             check_for_updates:
               artifacts:
-                - canary_build:
+                - build:
                     source: outdated-dependencies.txt
               tabs:
                 updates: outdated-dependencies.txt
