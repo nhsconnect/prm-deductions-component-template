@@ -4,6 +4,10 @@ data "aws_ssm_parameter" "root_zone_id" {
   name = "/NHS/deductions-${data.aws_caller_identity.current.account_id}/root_zone_id"
 }
 
+data "aws_ssm_parameter" "private_zone_id" {
+  name = "/NHS/deductions-${data.aws_caller_identity.current.account_id}/${var.environment}/private_root_zone_id"
+}
+
 data "aws_ssm_parameter" "authorization_keys" {
   name = "/NHS/${var.environment}-${data.aws_caller_identity.current.account_id}/${var.component_name}/authorization_keys"
 }
@@ -39,4 +43,16 @@ data "aws_ssm_parameter" "deductions_private_alb_httpl_arn" {
 data "aws_ssm_parameter" "deductions_private_alb_httpsl_arn" {
   name = "/nhs/${var.environment}/deductions_private_alb_httpsl_arn"
 }
+
+data "aws_ssm_parameter" "deductions_private_int_alb_httpl_arn" {
+  name = "/nhs/${var.environment}/deductions_private_int_alb_httpl_arn"
+}
+
+data "aws_ssm_parameter" "deductions_private_int_alb_httpsl_arn" {
+  name = "/nhs/${var.environment}/deductions_private_int_alb_httpsl_arn"
+}
+
+data "aws_ssm_parameter" "deductions_private_alb_internal_dns" {
+   name = "/nhs/${var.environment}/deductions_private_alb_internal_dns"
+} 
 
