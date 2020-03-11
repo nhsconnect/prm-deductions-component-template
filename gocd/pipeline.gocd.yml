@@ -146,8 +146,11 @@ pipelines:
         type: configrepo
         blacklist:
           - docs/**/*.*
+    timer:
+      spec: '5 14 * * * ? W'
     stages:
       - audit:
+          approval: manual
           clean_workspace: true
           jobs:
             dependency_check:
@@ -159,7 +162,7 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dep
-      - update_dependencies:
+      - update:
           clean_workspace: true
           jobs:
             check_for_updates:
@@ -188,7 +191,7 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks update_package_json
-      - canary_build:
+      - test:
           clean_workspace: true
           jobs:
             test:
@@ -196,7 +199,7 @@ pipelines:
                 - docker
               tasks:
                 - fetch:
-                    stage: update_dependencies
+                    stage: update
                     job: update_package_json
                     source: package.json
                     is_file: yes
@@ -205,3 +208,36 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test
+            integration:
+              resources:
+                - docker
+              tasks:
+                - fetch:
+                    stage: update
+                    job: update_package_json
+                    source: package.json
+                    is_file: yes
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks test_integration
+            audit:
+              artifacts:
+                - build:
+                    source: package.json
+              tabs:
+                'package.json': package.json
+              resources:
+                - docker
+              tasks:
+                - fetch:
+                    stage: update
+                    job: update_package_json
+                    source: package.json
+                    is_file: yes
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks dep
