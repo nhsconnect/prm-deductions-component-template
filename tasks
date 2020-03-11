@@ -122,8 +122,7 @@ case "${command}" in
       ;;
   _list_outdated)
       npm install
-      npm outdated > outdated-dependencies.txt
-      exit 0
+      npm outdated > outdated-dependencies.txt || exit 0
       ;;
   list_outdated)
       dojo "./tasks _list_outdated"

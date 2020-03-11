@@ -159,7 +159,7 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dep
-      - canary_build:
+      - update_dependencies:
           clean_workspace: true
           jobs:
             check_for_updates:
@@ -176,3 +176,32 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks list_outdated
+            update_package_json:
+              artifacts:
+                - build:
+                    source: package.json
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks update_package_json
+      - canary_build:
+          clean_workspace: true
+          jobs:
+            test:
+              resources:
+                - docker
+              tasks:
+                - fetch:
+                    stage: update_dependencies
+                    job: update_package_json
+                    source: package.json
+                    is_file: yes
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks test
