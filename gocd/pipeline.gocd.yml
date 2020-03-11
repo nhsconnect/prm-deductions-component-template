@@ -33,15 +33,6 @@ pipelines:
       - build:
           clean_workspace: true
           jobs:
-            # dependency_check:
-            #   resources:
-            #     - docker
-            #   tasks:
-            #     - exec:
-            #         command: /bin/bash
-            #         arguments:
-            #           - -c
-            #           - ./tasks dep
             test:
               resources:
                 - docker
@@ -147,3 +138,24 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test_functional
+  'prm-deductions-generic-component.canary':
+    group: deductions
+    label_template: '${git[:8]}'
+    materials:
+      git:
+        type: configrepo
+        blacklist:
+          - docs/**/*.*
+    stages:
+      - audit:
+          clean_workspace: true
+          jobs:
+            dependency_check:
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks dep

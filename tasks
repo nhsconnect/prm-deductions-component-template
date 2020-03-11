@@ -120,6 +120,12 @@ case "${command}" in
   dep)
       dojo "./tasks _dep"
       ;;
+  list_outdated)
+      dojo "npm outdated > outdated-dependencies.txt"
+      ;;
+  update_package_json)
+      dojo "npx npm-check-updates -u"
+      ;;
   _build)
       rm -rf build/
       npm install
