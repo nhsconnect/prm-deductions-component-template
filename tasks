@@ -177,10 +177,12 @@ case "${command}" in
   test_docker)
       configure_local_envs
       configure_docker_repository_uri
+      get_latest_commit_hash
       dojo -c Dojofile-dtest "./tasks _test_docker"
       ;;
   test_docker_local)
       configure_local_envs
+      get_latest_commit_hash
       dojo -c Dojofile-dtest "./tasks _test_docker"
       ;;
   tf)
