@@ -139,7 +139,7 @@ pipelines:
                       - -c
                       - ./tasks test_functional
   'prm-deductions-generic-component.canary':
-    group: deductions
+    group: deductions-canary
     label_template: '${git[:8]}'
     materials:
       git:
@@ -147,23 +147,11 @@ pipelines:
         blacklist:
           - docs/**/*.*
     timer:
-      spec: 0 12 14 ? * MON,TUE,WED,THU,FRI *
+      spec: 0 0 8 ? * MON,TUE,WED,THU,FRI *
     stages:
-      - audit:
-          approval: manual
-          clean_workspace: true
-          jobs:
-            dependency_check:
-              resources:
-                - docker
-              tasks:
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
-                      - ./tasks dep
       - update:
           clean_workspace: true
+          approval: manual
           jobs:
             check_for_updates:
               artifacts:
@@ -222,12 +210,10 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test_integration
+      - audit:
+          clean_workspace: true
+          jobs:
             audit:
-              artifacts:
-                - build:
-                    source: package.json
-              tabs:
-                'package.json': package.json
               resources:
                 - docker
               tasks:
@@ -236,6 +222,30 @@ pipelines:
                     job: update_package_json
                     source: package.json
                     is_file: yes
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks dep
+  'prm-deductions-generic-component.audit':
+    group: deductions-audit
+    label_template: '${git[:8]}'
+    materials:
+      git:
+        type: configrepo
+        blacklist:
+          - docs/**/*.*
+    timer:
+      spec: 0 0 8 ? * MON,TUE,WED,THU,FRI *
+    stages:
+      - audit:
+          clean_workspace: true
+          approval: manual
+          jobs:
+            dependency_check:
+              resources:
+                - docker
+              tasks:
                 - exec:
                     command: /bin/bash
                     arguments:
