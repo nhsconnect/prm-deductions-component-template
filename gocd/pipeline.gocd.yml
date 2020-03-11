@@ -74,7 +74,7 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test_coverage
-            npm_install:
+            build_artifacts:
               resources:
                 - docker
               artifacts:
@@ -95,7 +95,7 @@ pipelines:
               tasks:
                 - fetch:
                     stage: build
-                    job: npm_install
+                    job: build_artifacts
                     source: build
                 - exec:
                     command: /bin/bash
