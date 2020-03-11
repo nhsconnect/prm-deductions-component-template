@@ -147,7 +147,7 @@ pipelines:
         blacklist:
           - docs/**/*.*
     timer:
-      spec: '5 14 * * * ? W'
+      spec: 0 12 14 ? * MON,TUE,WED,THU,FRI *
     stages:
       - audit:
           approval: manual
