@@ -121,7 +121,7 @@ case "${command}" in
       dojo "./tasks _dep"
       ;;
   list_outdated)
-      dojo "npm outdated > outdated-dependencies.txt"
+      dojo "npm outdated > outdated-dependencies.txt || exit 0"
       ;;
   update_package_json)
       dojo "npx npm-check-updates -u"

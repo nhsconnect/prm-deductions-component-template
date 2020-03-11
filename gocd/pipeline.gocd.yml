@@ -167,7 +167,7 @@ pipelines:
                 - build:
                     source: outdated-dependencies.txt
               tabs:
-                updates: outdated-dependencies.txt
+                Updates: outdated-dependencies.txt
               resources:
                 - docker
               tasks:
