@@ -9,7 +9,7 @@ RUN apk add --no-cache tini bash
 ENV AUTHORIZATION_KEYS="correct-key,other-key" \
   NODE_ENV=local
 
-RUN yarn install
+RUN npm install
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["node", "server.js"]
