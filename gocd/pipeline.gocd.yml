@@ -159,3 +159,20 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dep
+      - canary_build:
+          clean_workspace: true
+          jobs:
+            check_for_updates:
+              artifacts:
+                - canary_build:
+                    source: outdated-dependencies.txt
+              tabs:
+                - updates: outdated-dependencies.txt
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks list_outdated
