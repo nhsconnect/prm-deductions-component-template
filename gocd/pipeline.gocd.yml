@@ -167,7 +167,7 @@ pipelines:
                 - canary_build:
                     source: outdated-dependencies.txt
               tabs:
-                - updates: outdated-dependencies.txt
+                updates: outdated-dependencies.txt
               resources:
                 - docker
               tasks:
