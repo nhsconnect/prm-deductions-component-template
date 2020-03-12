@@ -153,20 +153,6 @@ pipelines:
           clean_workspace: true
           approval: manual
           jobs:
-            check_for_updates:
-              artifacts:
-                - build:
-                    source: outdated-dependencies.txt
-              tabs:
-                Updates: outdated-dependencies.txt
-              resources:
-                - docker
-              tasks:
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
-                      - ./tasks list_outdated
             update_package_json:
               artifacts:
                 - build:
@@ -227,6 +213,23 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dep
+      - check_updates:
+          clean_workspace: true
+          jobs:
+            check_for_updates:
+              resources:
+                - docker
+              artifacts:
+                - build:
+                    source: outdated-dependencies.txt
+              tabs:
+                Updates: outdated-dependencies.txt
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks list_outdated
   'prm-deductions-generic-component.audit':
     group: deductions-audit
     label_template: '${git[:8]}'
