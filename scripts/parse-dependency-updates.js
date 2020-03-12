@@ -12,8 +12,8 @@ const fromString = updateString => {
 
   return {
     package: matcher[1],
-    currentVersion: matcher[2],
-    wantedVersion: matcher[3],
+    wantedVersion: matcher[2],
+    currentVersion: matcher[3],
     latestVersion: matcher[4]
   };
 };
@@ -21,6 +21,22 @@ const fromString = updateString => {
 const getAllUpdates = listOfUpdates =>
   extractDependencyUpdatesFromList(listOfUpdates).map(update => fromString(update));
 
-module.exports = { extractDependencyUpdatesFromList, isUpdate, fromString, getAllUpdates };
+const getAllUpdatesText = listOfUpdates => {
+  const allUpdates = getAllUpdates(listOfUpdates);
+  return allUpdates.reduce(
+    (acc, item) =>
+      acc +
+      `<b><a href=https://www.npmjs.com/package/${item.package}>${item.package}</a></b>: ${item.currentVersion} &rarr; ${item.latestVersion}<br>`,
+    ''
+  );
+};
+
+module.exports = {
+  extractDependencyUpdatesFromList,
+  isUpdate,
+  fromString,
+  getAllUpdates,
+  getAllUpdatesText
+};
 
 console.log(getAllUpdates(process.argv));
