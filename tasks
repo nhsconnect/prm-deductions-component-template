@@ -93,8 +93,8 @@ function tf_apply {
 # Script Functions #
 ####################
 
-function send_canary_message {
-  node scripts/send-canary-message.js $(npm outdated --parseable)
+function send_canary_update_message {
+  node scripts/send-canary-update.js $(npm outdated --parseable)
 }
 
 function configure_hangout_webhook {
@@ -148,7 +148,7 @@ case "${command}" in
       ;;
   _list_outdated)
       npm install
-      npm outdated > outdated-dependencies.txt || send_canary_message
+      npm outdated > outdated-dependencies.txt || send_canary_update_message
       ;;
   list_outdated)
       configure_hangout_webhook
@@ -156,6 +156,10 @@ case "${command}" in
       ;;
   update_package_json)
       dojo "npx npm-check-updates -u"
+      ;;
+  send_dead_canary_message)
+      configure_hangout_webhook
+      dojo "node scripts/send-canary-error.js"
       ;;
   _build)
       rm -rf build/

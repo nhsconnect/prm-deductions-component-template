@@ -1,4 +1,4 @@
-// Usage: node scripts/send-canary-message.js $(npm outdated --parseable)
+// Usage: node scripts/send-canary-update.js $(npm outdated --parseable)
 
 const axios = require('axios');
 const { getAllUpdatesText } = require('./parse-dependency-updates');
@@ -34,6 +34,6 @@ const body = {
   ]
 };
 
-console.log('Sending message to NHS-PRM build failures Google Hangout group');
+console.log('Sending message to Google Hangout group');
 
 axios.post(process.env.GOOGLE_CHAT_CANARY_WEBHOOK, body, options);
