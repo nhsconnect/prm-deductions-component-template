@@ -1,3 +1,4 @@
+// Usage: node scripts/send-canary-error.js
 const axios = require('axios');
 
 const options = {
@@ -10,7 +11,7 @@ const body = {
   cards: [
     {
       header: {
-        title: 'component-template',
+        title: `${process.env.NHS_SERVICE}`,
         subtitle: 'Canary Build',
         imageUrl: 'https://pbs.twimg.com/media/D41piqbWkAAtZaY.png'
       },

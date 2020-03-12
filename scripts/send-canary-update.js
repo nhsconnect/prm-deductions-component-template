@@ -1,5 +1,4 @@
 // Usage: node scripts/send-canary-update.js $(npm outdated --parseable)
-
 const axios = require('axios');
 const { getAllUpdatesText } = require('./parse-dependency-updates');
 
@@ -10,7 +9,7 @@ if (message) {
     cards: [
       {
         header: {
-          title: 'component-template',
+          title: `${process.env.NHS_SERVICE}`,
           subtitle: 'Canary',
           imageUrl:
             'https://imageog.flaticon.com/icons/png/512/185/185862.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF'

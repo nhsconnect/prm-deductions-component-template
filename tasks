@@ -8,7 +8,7 @@ set -Eeo pipefail
 
 AWS_DEFAULT_REGION=eu-west-2
 IMAGE_REPO_NAME=deductions/generic-component
-NHS_SERVICE=generic-component
+export NHS_SERVICE=generic-component
 
 ####################################
 # Instance (Environment) Variables #
@@ -17,6 +17,13 @@ NHS_SERVICE=generic-component
 function check_env {
   if [[ -z "${NHS_ENVIRONMENT}" ]]; then
     echo "Must set NHS_ENVIRONMENT"
+    exit 1
+  fi
+}
+
+function check_nhs_service {
+  if [[ -z "${NHS_SERVICE}" ]]; then
+    echo "Must set NHS_SERVICE"
     exit 1
   fi
 }
@@ -94,6 +101,7 @@ function tf_apply {
 ####################
 
 function send_canary_update_message {
+  check_nhs_service
   node scripts/send-canary-update.js $(npm outdated --parseable)
 }
 
@@ -158,6 +166,7 @@ case "${command}" in
       dojo "npx npm-check-updates -u"
       ;;
   send_dead_canary_message)
+      check_nhs_service
       configure_hangout_webhook
       dojo "node scripts/send-canary-error.js"
       ;;
