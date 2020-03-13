@@ -33,5 +33,6 @@ resource "aws_ecs_service" "ecs-service" {
     Terraform = "true"
     Environment = var.environment
     Deductions-VPC = var.component_name
+    TurnOffAtNight = "True"
   }
 }
