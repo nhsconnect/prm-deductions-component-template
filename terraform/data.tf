@@ -24,25 +24,25 @@ data "aws_ssm_parameter" "deductions_private_private_subnets" {
   name = "/nhs/${var.environment}/deductions_private_private_subnets"
 }
 
-data "aws_ssm_parameter" "deductions_private_alb_dns" {
-  name = "/nhs/${var.environment}/deductions_private_alb_dns"
-}
+# data "aws_ssm_parameter" "deductions_private_alb_dns" {
+#   name = "/nhs/${var.environment}/deductions_private_alb_dns"
+# }
 
 data "aws_ssm_parameter" "deductions_private_vpc_id" {
   name = "/nhs/${var.environment}/deductions_private_vpc_id"
 }
 
-data "aws_ssm_parameter" "deductions_private_alb_arn" {
-  name = "/nhs/${var.environment}/deductions_private_alb_arn"
-}
+# data "aws_ssm_parameter" "deductions_private_alb_arn" {
+#   name = "/nhs/${var.environment}/deductions_private_alb_arn"
+# }
 
-data "aws_ssm_parameter" "deductions_private_alb_httpl_arn" {
-  name = "/nhs/${var.environment}/deductions_private_alb_httpl_arn"
-}
+# data "aws_ssm_parameter" "deductions_private_alb_httpl_arn" {
+#   name = "/nhs/${var.environment}/deductions_private_alb_httpl_arn"
+# }
 
-data "aws_ssm_parameter" "deductions_private_alb_httpsl_arn" {
-  name = "/nhs/${var.environment}/deductions_private_alb_httpsl_arn"
-}
+# data "aws_ssm_parameter" "deductions_private_alb_httpsl_arn" {
+#   name = "/nhs/${var.environment}/deductions_private_alb_httpsl_arn"
+# }
 
 data "aws_ssm_parameter" "deductions_private_int_alb_httpl_arn" {
   name = "/nhs/${var.environment}/deductions_private_int_alb_httpl_arn"
@@ -54,5 +54,4 @@ data "aws_ssm_parameter" "deductions_private_int_alb_httpsl_arn" {
 
 data "aws_ssm_parameter" "deductions_private_alb_internal_dns" {
    name = "/nhs/${var.environment}/deductions_private_alb_internal_dns"
-} 
-
+}
