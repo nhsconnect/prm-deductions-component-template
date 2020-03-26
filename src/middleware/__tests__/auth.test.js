@@ -5,7 +5,7 @@ import app from '../../app';
 // jest.mock('../auth') will call the manual mock in __mocks__ automatically
 describe('auth', () => {
   beforeEach(() => {
-    process.env.AUTHORIZATION_KEYS = 'correct-key,other-key';
+    process.env.AUTHORIZATION_KEYS = 'correct-key';
   });
 
   afterEach(() => {
@@ -97,6 +97,34 @@ describe('auth', () => {
             })
           );
         })
+        .end(done);
+    });
+  });
+
+  describe('should only authenticate with exact value of the auth key', () => {
+    it('should return HTTP 403 when authorization key is incorrect', done => {
+      request(app)
+        .get(`/example-authenticated`)
+        .set('Authorization', 'co')
+        .expect(403)
+        .end(done);
+    });
+
+    it('should return HTTP 403 when authorization key is partial string', done => {
+      process.env.AUTHORIZATION_KEYS = 'correct-key,other-key';
+      request(app)
+        .get(`/example-authenticated`)
+        .set('Authorization', 'correct-key')
+        .expect(403)
+        .end(done);
+    });
+
+    it('should return HTTP 200 when authorization keys have a comma but are one string ', done => {
+      process.env.AUTHORIZATION_KEYS = 'correct-key,other-key';
+      request(app)
+        .get(`/example-authenticated`)
+        .set('Authorization', 'correct-key,other-key')
+        .expect(200)
         .end(done);
     });
   });

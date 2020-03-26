@@ -7,4 +7,4 @@ services:
     image: ${REPOSITORY_URI}:${COMMIT_HASH}
     environment:
       - NODE_ENV=local
-      - AUTHORIZATION_KEYS=correct-key,other-key
+      - AUTHORIZATION_KEYS=correct-key

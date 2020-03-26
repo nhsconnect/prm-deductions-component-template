@@ -8,8 +8,8 @@ COPY build/ /app/
 
 EXPOSE 3000
 
-ENV AUTHORIZATION_KEYS="correct-key,other-key" \
-    NODE_ENV=local
+ENV AUTHORIZATION_KEYS="correct-key" \
+  NODE_ENV=local
 
 RUN npm install
 

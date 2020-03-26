@@ -36,7 +36,7 @@ describe('app', () => {
 
   describe('GET /exampleAuthenticated', () => {
     beforeEach(() => {
-      process.env.AUTHORIZATION_KEYS = 'correct-key,other-key';
+      process.env.AUTHORIZATION_KEYS = 'correct-key';
     });
 
     it('should return a 200 when router is configured', done => {

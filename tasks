@@ -37,7 +37,7 @@ function configure_service_url {
 }
 
 function configure_local_envs {
-  export AUTHORIZATION_KEYS="correct-key,other-key"
+  export AUTHORIZATION_KEYS="correct-key"
   export REPOSITORY_URI=$IMAGE_REPO_NAME
   export NODE_ENV=local
   configure_service_url
