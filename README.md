@@ -26,15 +26,15 @@ Follow the links to download
 
 ## Directories
 
-| Directory  | Description                                       |
-| :--------- | :------------------------------------------------ |
-| /docs      | Contains documentation such as Plantuml diagrams  |
-| /test/docker      | Contains smoke test for docker                  |
-| /test/functional      | Contains end-to-end tests                  |
-| /gocd      | Contains the GoCD pipeline files                  |
-| /src       | The source code                   |
-| /terraform | Terraform to deploy app as a Fargate task in AWS  |
-| /scripts   | Useful scripts (e.g. for sending canary messages) |
+| Directory         | Description                                       |
+| :---------------- | :------------------------------------------------ |
+| /docs             | Contains documentation such as Plantuml diagrams  |
+| /test/docker      | Contains smoke test for docker                    |
+| /test/functional  | Contains end-to-end tests                         |
+| /gocd             | Contains the GoCD pipeline files                   |
+| /src              | The source code                                   |
+| /terraform        | Terraform to deploy app as a Fargate task in AWS  |
+| /scripts          | Useful scripts (e.g. for sending canary messages) |
 
 
 ## Starting the app
