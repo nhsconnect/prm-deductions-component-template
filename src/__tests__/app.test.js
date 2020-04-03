@@ -8,10 +8,7 @@ jest.mock('../config/logging');
 describe('app', () => {
   describe('GET /error', () => {
     it('should return a 500 status code when we call the error endpoint', done => {
-      request(app)
-        .get('/error')
-        .expect(500)
-        .end(done);
+      request(app).get('/error').expect(500).end(done);
     });
   });
 
@@ -27,10 +24,7 @@ describe('app', () => {
 
   describe('GET /example', () => {
     it('should return a 200 when router is configured', done => {
-      request(app)
-        .get('/example')
-        .expect(200)
-        .end(done);
+      request(app).get('/example').expect(200).end(done);
     });
   });
 
@@ -50,10 +44,7 @@ describe('app', () => {
 
   describe('GET /swagger', () => {
     it('should return a 200 when router is configured', done => {
-      request(app)
-        .get('/swagger')
-        .expect(301)
-        .end(done);
+      request(app).get('/swagger').expect(301).end(done);
     });
   });
 });

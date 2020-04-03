@@ -56,10 +56,7 @@ describe('auth', () => {
 
   describe('Authorization header not provided', () => {
     it('should return HTTP 401 when no authorization header provided', done => {
-      request(app)
-        .get('/example-authenticated')
-        .expect(401)
-        .end(done);
+      request(app).get('/example-authenticated').expect(401).end(done);
     });
 
     it('should return an explicit error message in the body when no authorization header provided', done => {
@@ -103,11 +100,7 @@ describe('auth', () => {
 
   describe('should only authenticate with exact value of the auth key', () => {
     it('should return HTTP 403 when authorization key is incorrect', done => {
-      request(app)
-        .get(`/example-authenticated`)
-        .set('Authorization', 'co')
-        .expect(403)
-        .end(done);
+      request(app).get(`/example-authenticated`).set('Authorization', 'co').expect(403).end(done);
     });
 
     it('should return HTTP 403 when authorization key is partial string', done => {
