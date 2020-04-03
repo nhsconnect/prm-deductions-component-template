@@ -26,16 +26,15 @@ Follow the links to download
 
 ## Directories
 
-| Directory         | Description                                       |
-| :---------------- | :------------------------------------------------ |
-| /docs             | Contains documentation such as Plantuml diagrams  |
-| /test/docker      | Contains smoke test for docker                    |
-| /test/functional  | Contains end-to-end tests                         |
-| /gocd             | Contains the GoCD pipeline files                   |
-| /src              | The source code                                   |
-| /terraform        | Terraform to deploy app as a Fargate task in AWS  |
-| /scripts          | Useful scripts (e.g. for sending canary messages) |
-
+| Directory        | Description                                       |
+| :--------------- | :------------------------------------------------ |
+| /docs            | Contains documentation such as Plantuml diagrams  |
+| /test/docker     | Contains smoke test for docker                    |
+| /test/functional | Contains end-to-end tests                         |
+| /gocd            | Contains the GoCD pipeline files                  |
+| /src             | The source code                                   |
+| /terraform       | Terraform to deploy app as a Fargate task in AWS  |
+| /scripts         | Useful scripts (e.g. for sending canary messages) |
 
 ## Starting the app
 
@@ -93,3 +92,13 @@ Before commiting, ensure you run the following tests:
 2. Integration tests
 3. Coverage tests
 4. Local docker test
+
+#### Environment variables
+
+Below are the environment variables that are automatically set:
+
+- `NHS_ENVIRONMENT` - is set to the current environment ('dev' for OpenTest and 'test' for PTL environment) in which the container is deployed. It is populated by the pipeline.gocd.yml
+- `SERVICE_URL` - This is prepopulated by `tasks` and will configure it to service URL according to environment.
+- `REPOSITORY_URI` - This is prepopulated by `tasks` (based on `IMAGE_REPO_NAME`)
+- `NODE_ENV` - set by the Docker files to be `local`
+- `AUTHORIZATION_KEYS` - a comma-separated list of Authorization keys. These are automatically taken from AWS Parameters Store in the 'dev' and 'test' environments.
