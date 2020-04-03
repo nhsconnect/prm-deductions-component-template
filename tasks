@@ -238,7 +238,7 @@ case "${command}" in
   run_docker_local)
       configure_local_envs
       get_latest_commit_hash
-      dojo -c Dojofile-dtest
+      dojo -c Dojofile-local
       ;;
   tf)
       check_env
