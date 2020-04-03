@@ -235,6 +235,11 @@ case "${command}" in
       get_latest_commit_hash
       dojo -c Dojofile-dtest "./tasks _test_docker"
       ;;
+  run_docker_local)
+      configure_local_envs
+      get_latest_commit_hash
+      dojo -c Dojofile-dtest
+      ;;
   tf)
       check_env
       dojo -c Dojofile-infra "bash"

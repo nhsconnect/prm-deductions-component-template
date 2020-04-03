@@ -8,3 +8,5 @@ services:
     environment:
       - NODE_ENV=local
       - AUTHORIZATION_KEYS=correct-key
+    ports:
+      - 3000:3000
