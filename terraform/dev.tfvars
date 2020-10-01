@@ -1,6 +1,7 @@
 environment          = "dev"
 component_name       = "generic-component"
 dns_name             = "generic-component"
+repo_name            = "prm-deductions-component-template"
 
 task_cpu             = 256
 task_memory          = 512
