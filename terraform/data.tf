@@ -9,7 +9,7 @@ data "aws_ssm_parameter" "private_zone_id" {
 }
 
 data "aws_ssm_parameter" "authorization_keys" {
-  name = "/repo/${var.environment}/prm-deductions-component-template/user-input/${var.component_name}-authorization-keys"
+  name = "/repo/${var.environment}/user-input/${var.component_name}-authorization-keys"
 }
 
 data "aws_ssm_parameter" "deductions_private_ecs_cluster_id" {

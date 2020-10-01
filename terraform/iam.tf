@@ -67,7 +67,7 @@ data "aws_iam_policy_document" "ssm_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:ssm:${var.region}:${local.account_id}:parameter/repo/${var.environment}/prm-deductions-component-template/user-input/${var.component_name}-authorization-keys"
+      "arn:aws:ssm:${var.region}:${local.account_id}:parameter/repo/${var.environment}/user-input/${var.component_name}-authorization-keys"
     ]
   }
 }
